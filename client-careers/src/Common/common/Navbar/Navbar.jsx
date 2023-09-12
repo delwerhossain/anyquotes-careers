@@ -147,13 +147,13 @@ const Navbar = () => {
             {menuList}
           </ul>
         </div>
-        <a className="btn btn-ghost normal-case text-xl">
+        <Link to={'/'} className="btn btn-ghost normal-case text-xl">
           <img
             className="lg:w-56 w-40 "
             src="https://anyquotes.co.uk/fontend/images/logo.png"
             alt="bnfcorporate logo"
           />
-        </a>
+        </Link>
       </div>
       <div className="navbar-center hidden lg:flex">{menuList}</div>
       <div className="navbar-end hidden">
