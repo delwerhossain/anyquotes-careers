@@ -2,6 +2,7 @@ import { createBrowserRouter } from "react-router-dom";
 import Main from "../Layout/Main/Main";
 import AllPost from "../pages/Client/AllPost/AllPost";
 import ErrorPage from "../Common/ErrorPage/ErrorPage";
+import { ApplyForm } from "../pages/Client/ApplyForm/ApplyForm";
 // import EmployeeAdd from "../pages/EmployeeAdd/EmployeeAdd";
 // import Home from "../pages/Home/Home";
 // import Login from "../pages/AuthenticationPage/Login";
@@ -19,6 +20,10 @@ export const router = createBrowserRouter([
       {
         path: "/",
         element: <AllPost />,
+      },
+      {
+        path: "/apply",
+        element: <ApplyForm />,
       },
       // {
       //   path: "all",

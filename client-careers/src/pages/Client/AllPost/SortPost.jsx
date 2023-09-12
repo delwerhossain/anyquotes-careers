@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { AiFillCaretDown, AiFillCaretUp } from "react-icons/ai";
+import { Link } from "react-router-dom";
 
 const SortPost = ({ data }) => {
   const {
@@ -49,7 +50,7 @@ const SortPost = ({ data }) => {
         </div>
       </div>
       <div className="h-14 flex justify-between">
-        <button className="btn mt-8 btn-warning ">Apply Job</button>
+        <Link to={"/apply"}  className="btn mt-8 btn-warning ">Apply Job</Link>
         <button onClick={() => setHide(!hide)} className="btn w-40 mt-8  ">
           <span className="mr-4"> More Details</span>{" "}
           {hide ? <AiFillCaretUp /> : <AiFillCaretDown />}
