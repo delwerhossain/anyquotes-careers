@@ -6,7 +6,7 @@ const AllPost = () => {
   
   return (
     <div className="mt-28 ">
-      <div className="grid xl:grid-cols-2 justify-center items-center">
+      <div className="grid xl:grid-cols-2 justify-center ">
         {sortData.map((data, b) => (
           <SortPost data={data} key={b} />
         ))}

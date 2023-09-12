@@ -1,5 +1,6 @@
 [
     {
+        "id": 1,
         "jobTitle": "HR OFFICER",
         "location": "MANCHESTER, M19 3HH",
         "hours": "37.5 hours Weekly ",
@@ -31,6 +32,7 @@
         ]
     },
     {
+        "id": 2,
         "jobTitle": "OFFICE MANAGER",
         "location": "MANCHESTER, M19 3HH",
         "hours": "37.5 hours Weekly ",
@@ -38,8 +40,8 @@
         "experience": "3-5 Years",
         "publishTime": "2023-09-12",
         "description": "We are looking for an Office Manager to organize and coordinate administration duties and office procedures. Your role is to create and maintain a pleasant work environment, ensuring high levels of organizational effectiveness, communication and safety. Office manager duties and responsibilities include scheduling meetings and appointments, making office supplies arrangements, greeting visitors and providing general administrative support to our employees. Previous experience as a Front Office Manager or Office Administrator would be an advantage. A successful Office Manager should also have experience with a variety of office software (email tools, spreadsheets and databases) and be able to accurately handle administrative duties. Ultimately, the Office manager should be able to ensure the smooth running of the office and help to improve company procedures and day-to-day operation.",
-        "": [
-            "Serve as the point person for office manager duties including: <br/><ul> <li>Maintenance</li> <li>Mailing</li> <li> Supplies</li> <li> Equipment</li> <li> Bills</li> <li>Errands </li> <li>Shopping</li>  </ul>",
+        "responsibilities": [
+            "Serve as the point person for office manager duties including: Maintenance , Mailing , Supplies, Equipment, Bills , Errands , Shopping",
             "Schedule meetings and appointments",
             "Organize the office layout and order stationery and equipment",
             "Maintain the office condition and arrange necessary repairs",
@@ -70,6 +72,7 @@
         ]
     },
     {
+        "id": 3,
         "jobTitle": "MARKETING ADMINISTRATOR",
         "location": "MANCHESTER, M19 3HH",
         "hours": "37.5 hours Weekly ",
@@ -100,6 +103,7 @@
         ]
     },
     {
+        "id": 4,
         "jobTitle": "CUSTOMER SERVICE MANAGER",
         "location": "MANCHESTER, M19 3HH",
         "hours": "37.5 hours Weekly ",
