@@ -1,5 +1,6 @@
 const express = require("express");
 const cors = require("cors");
+const emailRoutes = require("./routes/emailRoutes");
 //cors extra --------------
 
 // ------------
@@ -51,6 +52,9 @@ async function run() {
     ////////////////////////////////////////
     // mongoDB  API CRUD starts here
     ////////////////////////////////////////
+
+    //Signup and login
+    app.use("/email", emailRoutes);
 
     // get the employees data
     app.get("/employee", async (req, res) => {

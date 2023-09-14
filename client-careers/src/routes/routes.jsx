@@ -3,6 +3,7 @@ import Main from "../Layout/Main/Main";
 import AllPost from "../pages/Client/AllPost/AllPost";
 import ErrorPage from "../Common/ErrorPage/ErrorPage";
 import { ApplyForm } from "../pages/Client/ApplyForm/ApplyForm";
+import ThankYouPage from "../pages/Client/ThankYouPage/ThankYouPage";
 // import EmployeeAdd from "../pages/EmployeeAdd/EmployeeAdd";
 // import Home from "../pages/Home/Home";
 // import Login from "../pages/AuthenticationPage/Login";
@@ -22,7 +23,11 @@ export const router = createBrowserRouter([
         element: <AllPost />,
       },
       {
-        path: "/apply",
+        path: "/success",
+        element: <ThankYouPage />,
+      },
+      {
+        path: "apply/:id",
         element: <ApplyForm />,
       },
       // {

@@ -2,7 +2,7 @@ import { useState } from "react";
 import { AiFillCaretDown, AiFillCaretUp } from "react-icons/ai";
 import { Link } from "react-router-dom";
 
-const SortPost = ({ data }) => {
+const SortPost = ({ data , applyBtn }) => {
   const {
     jobTitle,
     location,
@@ -13,6 +13,7 @@ const SortPost = ({ data }) => {
     description,
     responsibilities,
     requirements,
+    id
   } = data;
   const [hide, setHide] = useState(false);
   // console.log({responsibilities, requirements});
@@ -49,8 +50,13 @@ const SortPost = ({ data }) => {
           </div>
         </div>
       </div>
-      <div className="h-14 flex justify-between">
-        <Link to={"/apply"}  className="btn mt-8 btn-warning ">Apply Job</Link>
+      <div className="h-18 flex justify-between">
+        <Link
+          to={`/apply/${id}`}
+          className={`btn mt-8 btn-warning ${applyBtn && "hidden"}`}
+        >
+          Apply Job
+        </Link>
         <button onClick={() => setHide(!hide)} className="btn w-40 mt-8  ">
           <span className="mr-4"> More Details</span>{" "}
           {hide ? <AiFillCaretUp /> : <AiFillCaretDown />}
