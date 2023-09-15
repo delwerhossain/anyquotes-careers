@@ -6,6 +6,7 @@ import sortData from "../../../data/sortPost.json";
 import SortPost from "../AllPost/SortPost";
 import Loading from "../../../Common/Loading/Loading";
 import { MoonLoader } from "react-spinners";
+import ReCAPTCHA from "react-google-recaptcha";
 
 export const ApplyForm = () => {
   const params = useParams();
@@ -13,8 +14,10 @@ export const ApplyForm = () => {
   const [axiosSecure] = useAxiosSecure();
   const [error, setError] = useState("");
   const [jobData, setJobData] = useState([]);
+  const [captcha, setCaptcha] = useState(false);
 
   console.log(jobData);
+  // get single data
   const dataFilter = () => {
     const data = sortData.filter((data) => data.id == id);
     setJobData(data);
@@ -24,6 +27,7 @@ export const ApplyForm = () => {
   }, [sortData]);
 
   const navigate = useNavigate();
+  // form submission
   const handleSubmit = (e) => {
     setBtn(true);
     e.preventDefault();
@@ -50,9 +54,20 @@ export const ApplyForm = () => {
       }
     });
   };
+
+  // captcha Check
+  const captchaCheck = (value) => {
+    if (value) {
+      setCaptcha(true);
+    }
+    else {
+      setCaptcha(false);
+    }
+  };
+
+  // loading indicator
   const [loading, setLoading] = useState(true);
   const [btn, setBtn] = useState(false);
-
   useEffect(() => {
     if (loading) {
       setTimeout(() => {
@@ -192,22 +207,32 @@ export const ApplyForm = () => {
             </div>
           </div>
 
-          <div className="mt-6 flex items-center justify-end gap-x-6">
-            <Link
-              to={"/"}
-              type="button"
-              className=" font-semibold leading-6 text-gray-900"
-            >
-              Cancel
-            </Link>
-            <button
-              type="submit"
-              className=" flex justify-center items-center gap-3 rounded-md  bg-green-800 px-3 py-2 font-semibold text-white shadow-sm hover:bg-green-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-600"
-            >
-              Apply
-              {btn && <MoonLoader size={20} color="#FFFF" loading />}
-              <span className="loading loading-spinner"></span>
-            </button>
+          <div className="mt-6 ">
+            {/* ReCAPTCHA verification */}
+            <div className="flex justify-end mb-3">
+              <ReCAPTCHA
+                sitekey="6LcsxCgoAAAAANy8GR2ixLwIGH5v782mmZFXpQII"
+                onChange={captchaCheck}
+              />
+            </div>
+            <div className="flex items-center justify-end gap-x-6">
+              <Link
+                to={"/"}
+                type="button"
+                className=" font-semibold leading-6 text-gray-900"
+              >
+                Cancel
+              </Link>
+              <button
+                disabled={!captcha}
+                type="submit"
+                className=" disabled:bg-slate-300 flex justify-center items-center gap-3 rounded-md  bg-green-800 px-3 py-2 font-semibold text-white shadow-sm hover:bg-green-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-600"
+              >
+                Apply
+                {btn && <MoonLoader size={20} color="#FFFF" loading />}
+                <span className="loading loading-spinner"></span>
+              </button>
+            </div>
           </div>
         </form>
       </div>
