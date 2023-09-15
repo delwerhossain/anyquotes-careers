@@ -211,7 +211,7 @@ export const ApplyForm = () => {
             {/* ReCAPTCHA verification */}
             <div className="flex justify-end mb-3">
               <ReCAPTCHA
-                sitekey="6LcsxCgoAAAAANy8GR2ixLwIGH5v782mmZFXpQII"
+                sitekey={`${import.meta.env.recaptcha_secret}`}
                 onChange={captchaCheck}
               />
             </div>
