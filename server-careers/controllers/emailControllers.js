@@ -15,7 +15,7 @@ let transporter = nodemailer.createTransport({
 
 const sendEmail = expressAsyncHandler(async (req, res) => {
   const { name, email, number, link, about, jobName } = req.body;
-  console.log(name, email, number, link, about, jobName);
+  // console.log(name, email, number, link, about, jobName);
 
   // Convert the request body to a string
   // const dataString = JSON.stringify(req.body);

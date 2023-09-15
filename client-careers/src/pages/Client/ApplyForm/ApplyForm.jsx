@@ -16,7 +16,7 @@ export const ApplyForm = () => {
   const [jobData, setJobData] = useState([]);
   const [captcha, setCaptcha] = useState(false);
 
-  console.log(jobData);
+  // console.log(jobData);
   // get single data
   const dataFilter = () => {
     const data = sortData.filter((data) => data.id == id);
@@ -40,9 +40,9 @@ export const ApplyForm = () => {
     const jobName = jobData[0].jobTitle;
 
     const data = { name, email, number, link, about, jobName };
-    console.log({ name, email, number, link, about, jobName });
+    // console.log({ name, email, number, link, about, jobName });
     axiosSecure.post("/email/sendEmail", data).then((data) => {
-      console.log(data.data.acknowledged);
+      // console.log(data.data.acknowledged);
       if (data.data.acknowledged) {
         toast.success("success message");
         setBtn(true);
@@ -211,7 +211,7 @@ export const ApplyForm = () => {
             {/* ReCAPTCHA verification */}
             <div className="flex justify-end mb-3">
               <ReCAPTCHA
-                sitekey={`${import.meta.env.recaptcha_secret}`}
+                sitekey="6LfO7ygoAAAAAL0wZ0wRsrMTxe2LDm08gagMnksG"
                 onChange={captchaCheck}
               />
             </div>

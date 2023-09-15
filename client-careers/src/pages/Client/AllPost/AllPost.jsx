@@ -5,7 +5,7 @@ import Loading from "../../../Common/Loading/Loading";
 
 
 const AllPost = () => {
-  console.log(sortData);
+  // console.log(sortData);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {

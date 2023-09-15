@@ -53,7 +53,7 @@ const EmployeeAdd = () => {
       sortCode,
     };
     axiosSecure.post("/employee", data).then((data) => {
-      console.log(data.data.acknowledged);
+      // console.log(data.data.acknowledged);
       if (data.data.acknowledged) {
         toast.success("success message");
         navigate("/all");
