@@ -19,7 +19,7 @@ export const ApplyForm = () => {
   // console.log(jobData);
   // get single data
   const dataFilter = () => {
-    const data = sortData.filter((data) => data.id == id);
+    const data = sortData.filter((data) => data?.id == id);
     setJobData(data);
   };
   useEffect(() => {
@@ -59,8 +59,7 @@ export const ApplyForm = () => {
   const captchaCheck = (value) => {
     if (value) {
       setCaptcha(true);
-    }
-    else {
+    } else {
       setCaptcha(false);
     }
   };
@@ -169,7 +168,6 @@ export const ApplyForm = () => {
                   </label>
                   <div className="mt-2">
                     <input
-                      required
                       id="link"
                       name="link"
                       type="text"
@@ -178,6 +176,29 @@ export const ApplyForm = () => {
                     />
                   </div>
                 </div>
+
+                <div className="sm:col-span-4 bg-green-50 py-4 px-3 rounded-xl">
+                  <label
+                    htmlFor="link"
+                    className="block  rounded-xl font-medium leading-6 text-gray-900 bg-white p-3  "
+                  >
+                    Please email your CV with a Cover Letter via email to :
+                    <a
+                      href="mailto:hr@anyquotes.co.uk"
+                      className="text-blue-700 font-bold"
+                    >
+                      {" "}
+                      hr@anyquotes.co.uk
+                    </a>
+                  </label>
+                  <a
+                    href="mailto:hr@anyquotes.co.uk"
+                    className="btn btn-primary mt-3"
+                  >
+                    Send on mail{" "}
+                  </a>
+                </div>
+
                 <div className="col-span-full">
                   <label
                     htmlFor="about"

@@ -39,7 +39,7 @@ const SortPost = ({ data , applyBtn }) => {
             <p className="font-bold text-slate-500 text-lg lg:mb-6 mb-2 ">
               CTC (Annual)
             </p>
-            <p className="font-semibold ">${ctc}</p>
+            <p className="font-semibold ">{ctc}</p>
           </div>
           <div>
             {" "}
