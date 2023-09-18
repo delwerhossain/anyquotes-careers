@@ -7,6 +7,7 @@ import SortPost from "../AllPost/SortPost";
 import Loading from "../../../Common/Loading/Loading";
 import { MoonLoader } from "react-spinners";
 import ReCAPTCHA from "react-google-recaptcha";
+import FileUpload from "../../../Components/FileUpload/FileUpload";
 
 export const ApplyForm = () => {
   const params = useParams();
@@ -14,7 +15,9 @@ export const ApplyForm = () => {
   const [axiosSecure] = useAxiosSecure();
   const [error, setError] = useState("");
   const [jobData, setJobData] = useState([]);
+  const [pdfFile, setPdfFile] = useState(null);
   const [captcha, setCaptcha] = useState(false);
+  console.log(pdfFile);
 
   // console.log(jobData);
   // get single data
@@ -39,7 +42,7 @@ export const ApplyForm = () => {
     const about = form.about.value;
     const jobName = jobData[0].jobTitle;
 
-    const data = { name, email, number, link, about, jobName };
+    const data = { name, email, number, pdfFile, link, about, jobName };
     // console.log({ name, email, number, link, about, jobName });
     axiosSecure.post("/email/sendEmail", data).then((data) => {
       // console.log(data.data.acknowledged);
@@ -54,6 +57,10 @@ export const ApplyForm = () => {
       }
     });
   };
+// pdf file upload function
+   const handlePdfFileChange = (selectedFile) => {
+     setPdfFile(selectedFile);
+   };
 
   // captcha Check
   const captchaCheck = (value) => {
@@ -197,6 +204,28 @@ export const ApplyForm = () => {
                   >
                     Send on mail{" "}
                   </a>
+                </div>
+
+                {/* pdf file upload option */}
+                <div className="sm:col-span-4 bg-green-50 py-4 px-3 rounded-xl">
+                  <label
+                    htmlFor="link"
+                    className="block  rounded-xl font-medium leading-6 text-gray-900 bg-white p-3  "
+                  >
+                    Please upload your CV{" "}
+                    <span className="text-primary font-bold">(PDF Format)</span>
+                    :
+                  </label>
+                  <div className="mt-2">
+                    <FileUpload onPdfFileChange={handlePdfFileChange} />
+                    {/* <input
+                      id="file"
+                      name="file"
+                      type="file"
+                      accept=".pdf"
+                      className="block w-full rounded-md border-0 py-1.5 px-3  text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-green-600 sm:text-sm sm:leading-6"
+                    /> */}
+                  </div>
                 </div>
 
                 <div className="col-span-full">

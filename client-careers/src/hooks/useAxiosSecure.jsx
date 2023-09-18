@@ -4,8 +4,8 @@ import axios from "axios";
 // import useAuth from "./useAuth";
 
 const axiosSecure = axios.create({
-  // baseURL: "https://anyquotes-careers.vercel.app/",
-  baseURL: "http://localhost:5000/",
+  baseURL: "https://anyquotes-careers.vercel.app/",
+  // baseURL: "http://localhost:5000/",
 });
 
 const useAxiosSecure = () => {

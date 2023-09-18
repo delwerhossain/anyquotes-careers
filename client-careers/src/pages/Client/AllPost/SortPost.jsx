@@ -23,7 +23,7 @@ const SortPost = ({ data , applyBtn }) => {
         <span className="font-bold">Post Date :</span> <br /> {publishTime}
       </h5>
       <div className="mt-6 text-slate-700">
-        <h3 className="text-2xl font-semibold lg:mb-6 mb-2  ">{jobTitle}</h3>
+        <h3 className="text-2xl font-bold lg:mb-6 mb-2 bg-green-700 text-white lg:w-3/5 text-center p-2 rounded-xl ">{jobTitle}</h3>
         <h6 className="font-bold text-slate-500"> Location : {location}</h6>
         <div className="mt-7 grid lg:flex justify-around items-center  gap-8 p-3 lg:p-6 bg-green-50 border border-green-200 rounded-xl">
           <div className="">
