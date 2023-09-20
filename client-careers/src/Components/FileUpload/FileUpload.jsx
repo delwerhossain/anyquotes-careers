@@ -15,8 +15,14 @@ function FileUpload({ onPdfFileChange }) {
         // Check if the file size is less than or equal to 3MB (3 * 1024 * 1024 bytes)
         if (selectedFile.size <= 3 * 1024 * 1024) {
           setFiles([selectedFile]);
-          onPdfFileChange(selectedFile);
           setError(null);
+          // Read the PDF file and convert it to base64
+          const reader = new FileReader();
+          reader.readAsDataURL(selectedFile);
+          reader.onload = () => {
+            // Pass the base64 string back to the parent component
+            onPdfFileChange(reader.result);
+          };
         } else {
           setError("File size should be less than or equal to 3MB.");
           setFiles(null);
@@ -51,8 +57,13 @@ function FileUpload({ onPdfFileChange }) {
         if (droppedFile.type === "application/pdf") {
           // Check if the file size is less than or equal to 3MB (3 * 1024 * 1024 bytes)
           if (droppedFile.size <= 3 * 1024 * 1024) {
-              setFiles([droppedFile]);
-               onPdfFileChange(droppedFile);
+            setFiles([droppedFile]);
+            const reader = new FileReader();
+            reader.readAsDataURL(droppedFile);
+            reader.onload = () => {
+              // Pass the base64 string back to the parent component
+              onPdfFileChange(reader.result);
+            };
             setError(null);
           } else {
             setError("File size should be less than or equal to 3MB.");
@@ -82,6 +93,7 @@ function FileUpload({ onPdfFileChange }) {
         onDrop={handleDrop}
       >
         <input
+          required={!files}
           type="file"
           accept=".pdf" // Accept only PDF files
           className="absolute inset-0 z-50 m-0 p-0 w-full h-full outline-none opacity-0"

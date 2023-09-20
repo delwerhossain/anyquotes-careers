@@ -17,7 +17,6 @@ export const ApplyForm = () => {
   const [jobData, setJobData] = useState([]);
   const [pdfFile, setPdfFile] = useState(null);
   const [captcha, setCaptcha] = useState(false);
-  console.log(pdfFile);
 
   // console.log(jobData);
   // get single data
@@ -38,29 +37,29 @@ export const ApplyForm = () => {
     const name = form.name.value;
     const email = form.email.value;
     const number = form.number.value;
-    const link = form.link.value;
+    // const link = form.link.value;
     const about = form.about.value;
     const jobName = jobData[0].jobTitle;
 
-    const data = { name, email, number, pdfFile, link, about, jobName };
-    // console.log({ name, email, number, link, about, jobName });
+    const data = { name, email, number, pdfFile, about, jobName };
+    // console.log({ name, email, number, about, jobName });
     axiosSecure.post("/email/sendEmail", data).then((data) => {
       // console.log(data.data.acknowledged);
       if (data.data.acknowledged) {
         toast.success("success message");
-        setBtn(true);
+        setBtn(false);
         navigate("/success");
       } else {
         toast.error("error ");
         setError("error ");
-        setBtn(true);
+        setBtn(false);
       }
     });
   };
-// pdf file upload function
-   const handlePdfFileChange = (selectedFile) => {
-     setPdfFile(selectedFile);
-   };
+  // pdf file upload function
+  const handlePdfFileChange = (selectedFile) => {
+    setPdfFile(selectedFile);
+  };
 
   // captcha Check
   const captchaCheck = (value) => {
@@ -74,6 +73,7 @@ export const ApplyForm = () => {
   // loading indicator
   const [loading, setLoading] = useState(true);
   const [btn, setBtn] = useState(false);
+
   useEffect(() => {
     if (loading) {
       setTimeout(() => {
@@ -166,7 +166,7 @@ export const ApplyForm = () => {
                     />
                   </div>
                 </div>
-                <div className="sm:col-span-4">
+                {/* <div className="sm:col-span-4">
                   <label
                     htmlFor="link"
                     className="block text-sm font-medium leading-6 text-gray-900"
@@ -204,12 +204,12 @@ export const ApplyForm = () => {
                   >
                     Send on mail{" "}
                   </a>
-                </div>
+                </div> */}
 
                 {/* pdf file upload option */}
                 <div className="sm:col-span-4 bg-green-50 py-4 px-3 rounded-xl">
                   <label
-                    htmlFor="link"
+                    htmlFor="file"
                     className="block  rounded-xl font-medium leading-6 text-gray-900 bg-white p-3  "
                   >
                     Please upload your CV{" "}
@@ -237,6 +237,7 @@ export const ApplyForm = () => {
                   </label>
                   <div className="mt-2">
                     <textarea
+                      required
                       id="about"
                       name="about"
                       rows={3}
@@ -259,11 +260,14 @@ export const ApplyForm = () => {
 
           <div className="mt-6 ">
             {/* ReCAPTCHA verification */}
-            <div className="flex justify-end mb-3">
+            <div className="grid gap-5 justify-end mb-3">
               <ReCAPTCHA
                 sitekey="6LfO7ygoAAAAAL0wZ0wRsrMTxe2LDm08gagMnksG"
                 onChange={captchaCheck}
               />
+              {btn && (
+                <progress className="progress progress-success w-full"></progress>
+              )}
             </div>
             <div className="flex items-center justify-end gap-x-6">
               <Link

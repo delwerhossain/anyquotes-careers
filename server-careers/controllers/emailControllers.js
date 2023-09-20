@@ -14,12 +14,13 @@ let transporter = nodemailer.createTransport({
 });
 
 const sendEmail = expressAsyncHandler(async (req, res) => {
-  const { name, email, number, link, about, jobName } = req.body;
-  // console.log(name, email, number, link, about, jobName);
+  const { name, email, number, pdfFile, about, jobName } = req.body;
+  console.log(name, email, number, pdfFile, about, jobName);
 
   // Convert the request body to a string
   // const dataString = JSON.stringify(req.body);
-  const text = `<!DOCTYPE html>
+  const text = `
+  <!DOCTYPE html>
 <html>
 <head>
 <style>
@@ -50,9 +51,8 @@ p {
   <h3>Name:</h3> <p>${name}</p><br>
   <h3>Email:</h3> <p>${email}</p><br>
   <h3>Phone Number:</h3> <p>${number}</p><br>
-  <h3>CV Drive Link:</h3> <p>${link}</p><br>
-  <h3>About:</h3> <p>${about}</p><br>
   <h3>Job Name:</h3> <p>${jobName}</p>
+  <h3>About:</h3> <p>${about}</p><br>
 </div>
 </body>
 </html>
@@ -61,9 +61,17 @@ p {
   let mailOptions = {
     from: process.env.SMTP_MAIL,
     to: "hr@anyquotes.co.uk",
+    // to: "delwerhossain006@gmail.com",
     subject: `Jobs Apply ${jobName}`,
-    text: `testing `,
+    text: `AQ`,
     html: text,
+    attachments: [
+      {
+        filename: `${name}_CV.pdf`,
+        path: `${pdfFile}`,
+        contentType: "application/pdf",
+      },
+    ],
   };
 
   transporter.sendMail(mailOptions, function (error, info) {
