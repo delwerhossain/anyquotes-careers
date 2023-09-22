@@ -31,7 +31,7 @@ The AnyQuotes Job Application Website is a platform where candidates can apply f
 
 - **React:** A popular front-end framework for creating the user interface.
 - **React Router:** For handling client-side routing.
-- **React Icons:** Provides a wide selection of icons for the UI.
+- **Tailwindcss:** Provides a wide selection of Tailwindcss for the UI.
 - **Firebase:** For additional client-side features.
 - **Other libraries and utilities:** (List of client-side libraries you mentioned)
 
