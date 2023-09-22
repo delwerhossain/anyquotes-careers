@@ -33,6 +33,7 @@ The AnyQuotes Job Application Website is a platform where candidates can apply f
 - **React Router:** For handling client-side routing.
 - **Tailwindcss:** Provides a wide selection of Tailwindcss for the UI.
 - **Firebase:** For additional client-side features.
+- **Google Recaptcha:** For additional Security.
 - **Other libraries and utilities:** (List of client-side libraries you mentioned)
 
 ### Server (Express.js)
