@@ -3,62 +3,44 @@ const dotenv = require("dotenv");
 const nodemailer = require("nodemailer");
 dotenv.config();
 
-let transporter = nodemailer.createTransport({
+const transporter = nodemailer.createTransport({
   host: process.env.SMTP_HOST,
   port: process.env.SMTP_PORT,
-  secure: false, // true for 465, false for other ports
+  secure: false,
   auth: {
-    user: process.env.SMTP_MAIL, // generated ethereal user
-    pass: process.env.SMTP_PASSWORD, // generated ethereal password
+    user: process.env.SMTP_MAIL,
+    pass: process.env.SMTP_PASSWORD,
   },
 });
+
+const commonMailOptions = {
+  from: "hr@anyquotes.co.uk",
+  text: "AQ",
+};
 
 const sendEmail = expressAsyncHandler(async (req, res) => {
   const { name, email, number, pdfFile, about, jobName } = req.body;
   console.log(name, email, number, pdfFile, about, jobName);
 
-  // Convert the request body to a string
-  // const dataString = JSON.stringify(req.body);
   const candiedData = `
     <!DOCTYPE html>
-<html>
-<head>
-<style>
-body {
-  font-family: sans-serif;
-  margin: 0;
-  padding: 0;
-}
+    <html>
+    <head>
+      <!-- Styles here -->
+    </head>
+    <body>
+      <div class="container">
+        <h3>Name:</h3> <p>${name}</p><br>
+        <h3>Email:</h3> <p>${email}</p><br>
+        <h3>Phone Number:</h3> <p>${number}</p><br>
+        <h3>Job Name:</h3> <p>${jobName}</p>
+        <h3>About:</h3> <p>${about}</p><br>
+      </div>
+    </body>
+    </html>
+  `;
 
-h3 {
-  font-size: 1.5em;
-  font-weight: bold;
-  margin-bottom: 0.5em;
-}
-
-p {
-  font-size: 1em;
-  margin-bottom: 0.5em;
-}
-
-.container {
-  width: 500px;
-}
-</style>
-</head>
-<body>
-<div class="container">
-  <h3>Name:</h3> <p>${name}</p><br>
-  <h3>Email:</h3> <p>${email}</p><br>
-  <h3>Phone Number:</h3> <p>${number}</p><br>
-  <h3>Job Name:</h3> <p>${jobName}</p>
-  <h3>About:</h3> <p>${about}</p><br>
-</div>
-</body>
-</html>
-`;
-
-  const successMessage = `
+const successMessage = `
    <html lang="en">
       <head>
         <meta charset="utf-8" />
@@ -123,52 +105,40 @@ p {
     </html>
     `;
 
-  // Create an array of mail options, one for each recipient
   const mailOptions = [
     {
-      from: "hr@anyquotes.co.uk",
+      ...commonMailOptions,
       to: "hr@anyquotes.co.uk",
-      // to: "delwerhossain006@gmail.com",
       subject: `Jobs Apply ${jobName}`,
-      text: `AQ`,
       html: candiedData,
       attachments: [
         {
           filename: `${name}_CV.pdf`,
-          path: `${pdfFile}`,
+          path: pdfFile,
           contentType: "application/pdf",
         },
       ],
     },
     {
-      from: "hr@anyquotes.co.uk",
+      ...commonMailOptions,
       to: email,
-      subject: `successfully applied on anyquotes `,
-      text: `AQ`,
+      subject: `Successfully applied on AnyQuotes`,
       html: successMessage,
     },
   ];
 
   try {
-    // Send each email
+    // Send each email using async/await
     for (const mailOption of mailOptions) {
-      transporter.sendMail(mailOption, function (error, info) {
-        if (error) {
-          console.log(error);
-          res
-            .status(500)
-            .json({ acknowledged: false, error: "Error sending email" });
-          throw error;
-        } else {
-          console.log("Email sent successfully to " + mailOption.to);
-        }
-      });
+      const info = await transporter.sendMail(mailOption);
+      console.log("Email sent successfully to " + info.accepted.join(", "));
     }
-  } catch (error) {
-    console.log(error);
-  } finally {
+
     // Respond to the client with success
     res.status(200).json({ acknowledged: true });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ acknowledged: false, error: "Error sending email" });
   }
 });
 
