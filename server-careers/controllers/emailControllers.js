@@ -126,8 +126,9 @@ p {
   // Create an array of mail options, one for each recipient
   const mailOptions = [
     {
-      // from: "hr@anyquotes.co.uk",
-      to: "delwerhossain006@gmail.com",
+      from: "hr@anyquotes.co.uk",
+      to: "hr@anyquotes.co.uk",
+      // to: "delwerhossain006@gmail.com",
       subject: `Jobs Apply ${jobName}`,
       text: `AQ`,
       html: candiedData,
