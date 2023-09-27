@@ -4,13 +4,8 @@ import AllPost from "../pages/Client/AllPost/AllPost";
 import ErrorPage from "../Common/ErrorPage/ErrorPage";
 import { ApplyForm } from "../pages/Client/ApplyForm/ApplyForm";
 import ThankYouPage from "../pages/Client/ThankYouPage/ThankYouPage";
-// import EmployeeAdd from "../pages/EmployeeAdd/EmployeeAdd";
-// import Home from "../pages/Home/Home";
-// import Login from "../pages/AuthenticationPage/Login";
-// // import Register from "../pages/AuthenticationPage/Register";
-// import PrivateRoute from "./PrivateRoute";
-// import Attendants from "../pages/Attendants/Attendants";
-// import EmpTables from "../pages/EmpTables/EmpTables";
+// import Dashboard from "../Layout/Dashboard/Dashboard";
+import Login from "../Common/AuthenticationPage/Login";
 
 export const router = createBrowserRouter([
   {
@@ -23,6 +18,15 @@ export const router = createBrowserRouter([
         element: <AllPost />,
       },
       {
+        path: "/admin",
+        element: <AllPost />,
+      },
+      {
+        path: "/login",
+        element: <Login />,
+      },
+ 
+      {
         path: "/success",
         element: <ThankYouPage />,
       },
@@ -30,38 +34,17 @@ export const router = createBrowserRouter([
         path: "apply/:id",
         element: <ApplyForm />,
       },
-      // {
-      //   path: "all",
-      //   element: (
-      //     <PrivateRoute>
-      //       <EmpTables />
-      //     </PrivateRoute>
-      //   ),
-      // },
-      // {
-      //   path: "attendants",
-      //   element: (
-      //     <PrivateRoute>
-      //       <Attendants />
-      //     </PrivateRoute>
-      //   ),
-      // },
-      // {
-      //   path: "home",
-      //   element: (
-      //     <PrivateRoute>
-      //       <Home />
-      //     </PrivateRoute>
-      //   ),
-      // },
-      // {
-      //   path: "login",
-      //   element: <Login />,
-      // },
-      // {
-      //   path: "register",
-      //   element: <Register />,
-      // },
     ],
   },
+  // {
+  //   path: "dashboard",
+  //   element: <Dashboard />,
+  //   errorElement: <ErrorPage />,
+  //   children: [
+  //     {
+  //       path: "all",
+  //       element: <AllPost />,
+  //     },
+  //   ],
+  // },
 ]);
