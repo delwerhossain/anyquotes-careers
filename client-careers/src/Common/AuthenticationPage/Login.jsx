@@ -11,6 +11,7 @@ const Login = () => {
   const navigate = useNavigate();
   // state
   const [error, setError] = useState("");
+  const [show, setShow] = useState(false);
   const [success, setSuccess] = useState("");
 
   const handleLogin = (event) => {
@@ -64,7 +65,7 @@ const Login = () => {
   // };
 
   return (
-    <div className="hero min-h-screen bg-white">
+    <div className="hero min-h-screen mt-14 bg-white">
       <div className="hero-content flex-col lg:flex-row">
         <div className="w-1/2 mr-12">
           <img
@@ -75,7 +76,9 @@ const Login = () => {
         </div>
         <div className="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
           <div className="card-body ">
-            <h1 className="text-xl my-5 text-center font-bold">Login First Then Add you Data  </h1>
+            <h1 className="text-xl my-5 text-center font-bold">
+              Please Login{" "}
+            </h1>
             <form onSubmit={handleLogin}>
               <div className="form-control">
                 <label className="label">
@@ -95,14 +98,17 @@ const Login = () => {
                 </label>
                 <input
                   required
-                  type="password"
+                  type={`${!show ? "password" : "text"}`}
                   name="password"
                   placeholder="password"
                   className="input input-bordered"
                 />
                 <label className="label">
-                  <a href="#" className="label-text-alt link link-hover">
-                    Forgot password?
+                  <a
+                    onClick={() => setShow(!show)}
+                    className="label-text-alt link link-hover"
+                  >
+                    {show ? "Hide password" : "  show password"}
                   </a>
                 </label>
               </div>
@@ -159,9 +165,9 @@ const Login = () => {
                 Sign Up
               </Link>
             </p> */}
-            {/* <p className="font-semibold underline text-secondary text-center">
+            <p className="font-semibold underline text-green-700 text-center">
               <Link to={"/"}> Home page</Link>
-            </p> */}
+            </p>
           </div>
         </div>
       </div>
