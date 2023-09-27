@@ -1,8 +1,10 @@
 import { useState } from "react";
 import { AiFillCaretDown, AiFillCaretUp } from "react-icons/ai";
 import { Link } from "react-router-dom";
+import useAuth from "../../../hooks/useAuth";
 
-const SortPost = ({ data , applyBtn }) => {
+const SortPost = ({ data, applyBtn }) => {
+  const { user } = useAuth();
   const {
     jobTitle,
     location,
@@ -13,17 +15,28 @@ const SortPost = ({ data , applyBtn }) => {
     description,
     responsibilities,
     requirements,
-    id
+    id,
   } = data;
   const [hide, setHide] = useState(false);
   // console.log({responsibilities, requirements});
   return (
     <div className="lg:m-6 m-2 lg:p-10 px-3 py-5 border border-green-200 rounded-xl hover:bg-slate-50 relative ">
-      <h5 className="border rounded p-1 w-40 hover:bg-green-50 border-green-400 text-center text-sm  text-slate-700 font-semibold">
-        <span className="font-bold">Post Date :</span> <br /> {publishTime}
-      </h5>
+      <div className="flex justify-between">
+        <h5 className="border rounded p-4 w-40 hover:bg-green-50 border-green-400 text-center text-sm  text-slate-700 font-semibold">
+          <span className="font-bold">Post Date :</span> <br /> {publishTime}
+        </h5>
+        {user && (
+          <div className="p-4 bg-green-200">
+            <button className="bg-green-600 btn-success btn border-green-700 text-white">
+              edit
+            </button>
+          </div>
+        )}
+      </div>
       <div className="mt-6 text-slate-700">
-        <h3 className="text-2xl font-bold lg:mb-6 mb-2 bg-green-700 text-white lg:w-3/5 text-center p-2 rounded-xl ">{jobTitle}</h3>
+        <h3 className="text-2xl font-bold lg:mb-6 mb-2 bg-green-700 text-white lg:w-3/5 text-center p-2 rounded-xl ">
+          {jobTitle}
+        </h3>
         <h6 className="font-bold text-slate-500"> Location : {location}</h6>
         <div className="mt-7 grid lg:flex justify-around items-center  gap-8 p-3 lg:p-6 bg-green-50 border border-green-200 rounded-xl">
           <div className="">
