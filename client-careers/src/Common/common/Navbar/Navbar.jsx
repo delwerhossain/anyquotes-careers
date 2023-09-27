@@ -1,8 +1,11 @@
-import { Link, NavLink } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import useAuth from "../../../hooks/useAuth";
 import { FiLogIn, FiLogOut } from "react-icons/fi";
 
 const Navbar = () => {
+  
+  const location = useLocation();
+  console.log(location.pathname);
   const { user, signOutLog } = useAuth();
 
   // logout user part
@@ -147,7 +150,7 @@ const Navbar = () => {
             {menuList}
           </ul>
         </div> */}
-        <Link to={'/'} className="btn btn-ghost normal-case text-xl">
+        <Link to={"/"} className="btn btn-ghost normal-case text-xl">
           <img
             className="lg:w-56 w-40 "
             src="https://anyquotes.co.uk/fontend/images/logo.png"
@@ -156,9 +159,14 @@ const Navbar = () => {
         </Link>
       </div>
       <div className="navbar-center hidden lg:flex">{menuList}</div>
-      <div className="navbar-end hidden">
+
+      <div
+        className={`navbar-end ${
+          location.pathname === "/admin" || user ? "" : "hidden"
+        }`}
+      >
         {user ? (
-          <>
+          <div className="bg-white p-2 rounded-xl border flex justify-center items-center ">
             <div
               className="tooltip tooltip-bottom "
               data-tip={user?.displayName}
@@ -166,9 +174,8 @@ const Navbar = () => {
               <img
                 loading="lazy"
                 className="w-12 mr-1 rounded-full"
-                src={user?.photoURL}
-                alt={user?.displayName}
-                title={user?.displayName}
+                src="https://shorturl.at/eABFI"
+                
               />
             </div>
             <div className="tooltip tooltip-bottom " data-tip="log Out">
@@ -176,14 +183,14 @@ const Navbar = () => {
                 <FiLogOut title="logOut"></FiLogOut>
               </div>
             </div>
-          </>
+          </div>
         ) : (
           <div className="tooltip tooltip-bottom " data-tip="log In">
             <Link
-              className="btn btn-primary btn-md btn-outline font-semibold p-2"
+              className="btn btn-success bg-green-600 btn-md  font-semibold p-2"
               to={"/login"}
             >
-              <span className="mr-1 ">LogIn</span>
+              <span className="mr-1 text-white">LogIn</span>
               <FiLogIn title="logOut"></FiLogIn>
             </Link>
           </div>
