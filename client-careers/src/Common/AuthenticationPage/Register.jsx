@@ -82,7 +82,7 @@ const Register = () => {
   // };
 
   return (
-    <div className="hero min-h-screen bg-white">
+    <div className="hero min-h-screen mt-14 bg-white">
       <Toaster />
       <div className="hero-content flex-col lg:flex-row">
         <div className="w-1/2 mr-12">
