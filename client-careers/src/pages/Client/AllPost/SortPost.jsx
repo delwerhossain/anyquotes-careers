@@ -27,9 +27,12 @@ const SortPost = ({ data, applyBtn }) => {
         </h5>
         {user && (
           <div className="p-4 bg-green-200">
-            <button className="bg-green-600 btn-success btn border-green-700 text-white">
+            <Link
+              to={`edit/${id}`}
+              className="bg-green-600 btn-success btn border-green-700 text-white"
+            >
               edit
-            </button>
+            </Link>
           </div>
         )}
       </div>
