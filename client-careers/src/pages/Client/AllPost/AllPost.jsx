@@ -1,12 +1,12 @@
 import SortPost from "./SortPost";
-import sortData from "../../../data/sortPost.json";
 import { useEffect, useState } from "react";
 import Loading from "../../../Common/Loading/Loading";
-
+import useAllData from "../../../hooks/useAllData";
 
 const AllPost = () => {
-  // console.log(sortData);
   const [loading, setLoading] = useState(true);
+  const data = useAllData();
+
 
   useEffect(() => {
     if (loading) {
@@ -23,7 +23,7 @@ const AllPost = () => {
   ) : (
     <div className="mt-28 ">
       <div className="grid xl:grid-cols-2 justify-center ">
-        {sortData.map((data, b) => (
+        {data.map((data, b) => (
           <SortPost data={data} key={b} />
         ))}
       </div>

@@ -15,7 +15,7 @@ const SortPost = ({ data, applyBtn }) => {
     description,
     responsibilities,
     requirements,
-    id,
+    _id,
   } = data;
   const [hide, setHide] = useState(false);
   // console.log({responsibilities, requirements});
@@ -28,7 +28,7 @@ const SortPost = ({ data, applyBtn }) => {
         {user && (
           <div className="p-4 bg-green-200">
             <Link
-              to={`edit/${id}`}
+              to={`/edit/${_id}`}
               className="bg-green-600 btn-success btn border-green-700 text-white"
             >
               edit
@@ -68,7 +68,7 @@ const SortPost = ({ data, applyBtn }) => {
       </div>
       <div className="h-18 flex justify-between">
         <Link
-          to={`/apply/${id}`}
+          to={`/apply/${_id}`}
           className={`btn mt-8 btn-warning ${applyBtn && "hidden"}`}
         >
           Apply Job

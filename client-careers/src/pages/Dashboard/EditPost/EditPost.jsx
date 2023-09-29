@@ -1,21 +1,22 @@
 import { useParams } from "react-router-dom";
-import sortData from "../../../data/sortPost.json";
 import { useEffect, useState } from "react";
+import useAllData from "../../../hooks/useAllData";
 
 const EditPost = () => {
   const params = useParams();
   const id = params.id;
   const [jobData, setJobData] = useState([]);
 
+console.log(jobData);
   // single
+  const data = useAllData();
   const dataFilter = () => {
-    const data = sortData.filter((data) => data?.id == id);
-    setJobData(data);
+    const allData = data.filter((data) => data?._id == id);
+    setJobData(allData);
   };
   useEffect(() => {
     dataFilter();
-  }, [sortData]);
-  console.log(jobData);
+  }, [data]);
 
   return (
     <div className="mt-28">

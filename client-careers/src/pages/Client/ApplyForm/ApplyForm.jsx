@@ -2,12 +2,12 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import toast, { Toaster } from "react-hot-toast";
 import { useEffect, useState } from "react";
-import sortData from "../../../data/sortPost.json";
 import SortPost from "../AllPost/SortPost";
 import Loading from "../../../Common/Loading/Loading";
 import { MoonLoader } from "react-spinners";
 import ReCAPTCHA from "react-google-recaptcha";
 import FileUpload from "../../../Components/FileUpload/FileUpload";
+import useAllData from "../../../hooks/useAllData";
 
 export const ApplyForm = () => {
   const params = useParams();
@@ -20,13 +20,14 @@ export const ApplyForm = () => {
 
   // console.log(jobData);
   // get single data
+  const data = useAllData();
   const dataFilter = () => {
-    const data = sortData.filter((data) => data?.id == id);
-    setJobData(data);
+    const allData = data.filter((data) => data?._id == id);
+    setJobData(allData);
   };
   useEffect(() => {
     dataFilter();
-  }, [sortData]);
+  }, [data]);
 
   const navigate = useNavigate();
   // form submission
