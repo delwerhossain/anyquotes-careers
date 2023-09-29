@@ -60,7 +60,7 @@ async function run() {
     app.use("/email", emailRoutes);
 
     // get the employees data
-    app.get("/data", async (req, res) => {
+    app.get("/post", async (req, res) => {
       const result = await postCollection.find().toArray();
       res.send(result);
     });
@@ -68,13 +68,13 @@ async function run() {
     //post employee data
     app.post("/post", async (req, res) => {
       const data = req.body;
-      // console.log(data);
-      const result = await postCollection.insertOne(data);
+      console.log(data);
+      const result = await postCollection.insertMany(data);
       res.send(result);
     });
 
     //edit employee data
-    app.put("/edit/:id", async (req, res) => {
+    app.put("/post/:id", async (req, res) => {
       const data = req.body;
       const id = req.params.id;
       const {
