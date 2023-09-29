@@ -68,8 +68,7 @@ async function run() {
     //post employee data
     app.post("/post", async (req, res) => {
       const data = req.body;
-      console.log(data);
-      const result = await postCollection.insertMany(data);
+      const result = await postCollection.insertOne(data);
       res.send(result);
     });
 
