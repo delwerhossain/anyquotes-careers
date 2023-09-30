@@ -30,7 +30,7 @@ const EditPost = () => {
   }, [data]);
 
   return (
-    <div className="mt-28 w-10/12 mx-auto">
+    <div className="mt-32 mb-10 w-10/12 mx-auto">
       <div className="mt-6 bg-green-50 border border-green-500 p-4 md:p-6  grid gap-4 lg:gap-10 md:grid-cols-2 ">
         {/* position name filed */}
         <div className="form-control mb-5  w-full ">
@@ -134,13 +134,12 @@ const EditPost = () => {
               key={index}
             >
               <p className="col-span-1">{index + 1}</p>
-              <input
+              <textarea
                 className="border-red-200 rounded-xl col-span-11  border-2 w-full p-2"
                 name="responsibilities"
                 defaultValue={text}
                 placeholder="Responsibilities..."
                 id=""
-                rows="5"
               />
             </div>
           ))}
@@ -156,13 +155,13 @@ const EditPost = () => {
               key={index}
             >
               <p className="col-span-1">{index + 1}</p>
-              <input
+              <textarea
                 className="border-indigo-200 rounded-xl col-span-11  border-2 w-full p-2"
-                name="requirements "
+                name="requirements"
                 defaultValue={text}
                 placeholder="Requirements..."
                 id=""
-                rows="5"
+
               />
             </div>
           ))}
