@@ -76,13 +76,13 @@ async function run() {
     app.put("/post/:id", async (req, res) => {
       const data = req.body;
       const id = req.params.id;
+      // const publishTime = Date.now();
       const {
         jobTitle,
         location,
         hours,
         ctc,
         experience,
-        publishTime,
         description,
         responsibilities,
         requirements,
@@ -96,7 +96,7 @@ async function run() {
           hours,
           ctc,
           experience,
-          publishTime,
+          // publishTime,
           description,
           responsibilities,
           requirements,
@@ -104,9 +104,9 @@ async function run() {
       };
       const options = { upsert: false };
 
-      const result = await classCollection.updateOne(filter, update, options);
+      const result = await postCollection.updateOne(filter, update, options);
 
-      res.send(result);
+      res.status(200).json({ acknowledged: true, result });
     });
 
     ////////////////////////////////////////
