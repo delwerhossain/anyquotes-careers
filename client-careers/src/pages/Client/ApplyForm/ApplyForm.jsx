@@ -7,7 +7,7 @@ import Loading from "../../../Common/Loading/Loading";
 import { MoonLoader } from "react-spinners";
 import ReCAPTCHA from "react-google-recaptcha";
 import FileUpload from "../../../Components/FileUpload/FileUpload";
-import useAllData from "../../../hooks/useAllData";
+import useSingleData from "../../../hooks/useSingleData";
 
 export const ApplyForm = () => {
   const params = useParams();
@@ -18,17 +18,21 @@ export const ApplyForm = () => {
   const [pdfFile, setPdfFile] = useState(null);
   const [captcha, setCaptcha] = useState(false);
 
+
   // console.log(jobData);
   // get single data
-  const data = useAllData();
-  const dataFilter = () => {
-    const allData = data.filter((data) => data?._id == id);
-    setJobData(allData);
-  };
+  const data = useSingleData(id);
+  // console.log(data);
+  // const dataFilter = () => {
+  //   const allData = data.filter((data) => data?._id == id);
+  //   setJobData(allData);
+  // };
   useEffect(() => {
-    dataFilter();
+    // dataFilter();
+    setJobData([data]);
   }, [data]);
 
+  console.log(jobData);
   const navigate = useNavigate();
   // form submission
   const handleSubmit = (e) => {
@@ -74,18 +78,18 @@ export const ApplyForm = () => {
   // loading indicator
   const [loading, setLoading] = useState(true);
   const [btn, setBtn] = useState(false);
-
+  console.log(data);
   useEffect(() => {
-    if (loading) {
-      setTimeout(() => {
-        setLoading(false);
-      }, 400);
+    if (jobData.length > 0) {
+      setLoading(false);
+    } else {
+      setLoading(true);
     }
-  }, []);
+  }, [data]);
 
   return loading ? (
     <div className="grid justify-center items-center">
-      <Loading></Loading>
+      <Loading></Loading> 
     </div>
   ) : (
     <div className="xl:mt-32 mt-24   ">
