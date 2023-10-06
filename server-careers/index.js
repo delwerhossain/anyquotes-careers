@@ -59,20 +59,28 @@ async function run() {
     //Signup and login
     app.use("/email", emailRoutes);
 
-    // get the employees data
+    // get the all data
     app.get("/post", async (req, res) => {
       const result = await postCollection.find().toArray();
       res.send(result);
     });
-
-    //post employee data
-    app.post("/post", async (req, res) => {
-      const data = req.body;
-      const result = await postCollection.insertOne(data);
+    // get the single data
+    app.get("/post/:id", async (req, res) => {
+      const id = req.params.id; 
+      const filterID = { _id: new ObjectId(id) };
+      const result = await postCollection.findOne(filterID);
       res.send(result);
     });
 
-    //edit employee data
+    //post post data
+    app.post("/post", async (req, res) => {
+      const data = req.body;
+      const result = await postCollection.insertOne(data);
+      res.status(200).json(result);
+      
+    });
+
+    //edit post data
     app.put("/post/:id", async (req, res) => {
       const data = req.body;
       const id = req.params.id;
@@ -110,8 +118,15 @@ async function run() {
 
       const result = await postCollection.updateOne(filter, update, options);
 
-      res.status(200).json({ acknowledged: true, result });
+      res.status(200).json(result);
     });
+    // delete post data
+    app.delete("/post/:id", async (req, res) => {
+      const id = req.params.id;
+      const filter = { _id: new ObjectId(id) };
+      const result = await postCollection.deleteOne(filter);
+      res.status(200).json(result);
+    })
 
     ////////////////////////////////////////
     // mongoDB  everything ends here
