@@ -80,6 +80,8 @@ async function run() {
       const {
         jobTitle,
         location,
+        lastEditUser,
+        editTime,
         hours,
         ctc,
         experience,
@@ -93,6 +95,8 @@ async function run() {
         $set: {
           jobTitle,
           location,
+          lastEditUser,
+          editTime,
           hours,
           ctc,
           experience,
