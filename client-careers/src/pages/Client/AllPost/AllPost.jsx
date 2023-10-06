@@ -6,15 +6,14 @@ import useAllData from "../../../hooks/useAllData";
 const AllPost = () => {
   const [loading, setLoading] = useState(true);
   const data = useAllData();
-
-
   useEffect(() => {
-    if (loading) {
-      setTimeout(() => {
-        setLoading(false);
-      }, 500);
+    if (data.length > 0) {
+      setLoading(false);
     }
-  }, []);
+    else {
+      setLoading(true);
+    }
+  }, [data]);
 
   return loading ? (
     <div className="grid justify-center items-center">
