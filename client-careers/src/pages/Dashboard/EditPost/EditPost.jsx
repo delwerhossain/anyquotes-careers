@@ -3,8 +3,20 @@ import toast, { Toaster } from "react-hot-toast";
 import { useEffect, useState } from "react";
 import useAllData from "../../../hooks/useAllData";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
+import useAuth from "../../../hooks/useAuth";
 
 const EditPost = () => {
+  // user data
+  const { user } = useAuth();
+  // time
+  const timeNow = new Date().toLocaleDateString("en-US", {
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+    hour: "numeric",
+    minute: "numeric",
+    second: "numeric",
+  });
   //axios.request
   const [axiosSecure] = useAxiosSecure();
   // params for filtering
@@ -18,7 +30,8 @@ const EditPost = () => {
   const [jobData, setJobData] = useState({
     jobTitle: existingJobData[0]?.jobTitle || "",
     location: existingJobData[0]?.location || "",
-    publishTime: existingJobData[0]?.publishTime || "",
+    lastEditUser: existingJobData[0]?.lastEditUser || "",
+    editTime: existingJobData[0]?.editTime || "",
     hours: existingJobData[0]?.hours || "",
     ctc: existingJobData[0]?.ctc || "",
     experience: existingJobData[0]?.experience || "",
@@ -32,7 +45,8 @@ const EditPost = () => {
     setJobData({
       jobTitle: existingJobData[0]?.jobTitle || "",
       location: existingJobData[0]?.location || "",
-      publishTime: existingJobData[0]?.publishTime || "",
+      lastEditUser: user?.email,
+      editTime: timeNow,
       hours: existingJobData[0]?.hours || "",
       ctc: existingJobData[0]?.ctc || "",
       experience: existingJobData[0]?.experience || "",
