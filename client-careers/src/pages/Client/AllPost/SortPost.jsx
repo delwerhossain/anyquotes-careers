@@ -1,9 +1,17 @@
 import { useState } from "react";
 import { AiFillCaretDown, AiFillCaretUp } from "react-icons/ai";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import useAuth from "../../../hooks/useAuth";
+import useDeletePost from "../../../hooks/useDeletePost";
+
+
 
 const SortPost = ({ data, applyBtn }) => {
+  // get route location
+  const locationPath = useLocation();
+  //post delete hook
+  const { handleDelete } = useDeletePost();
+  // user data
   const { user } = useAuth();
   const {
     jobTitle,
@@ -17,8 +25,8 @@ const SortPost = ({ data, applyBtn }) => {
     requirements,
     _id,
   } = data;
-  const [hide, setHide] = useState(false);
-  // console.log({responsibilities, requirements});
+  const [hide, setHide] = useState(locationPath.pathname === `/apply/${_id}`);
+
   return (
     <div className="lg:m-6 m-2 lg:p-10 px-3 py-5 border border-green-200 rounded-xl hover:bg-slate-50 relative ">
       <div className="flex justify-between">
@@ -33,6 +41,14 @@ const SortPost = ({ data, applyBtn }) => {
             >
               edit
             </Link>
+            {locationPath.pathname === `/apply/${_id}` && (
+              <button
+                onClick={()=>handleDelete(_id)}
+                className="ml-2 bg-red-600 hover:bg-red-700 hover:border-red-900 btn border-red-700 text-white"
+              >
+                delete
+              </button>
+            )}
           </div>
         )}
       </div>
