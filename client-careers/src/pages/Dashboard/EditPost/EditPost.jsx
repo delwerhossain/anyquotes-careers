@@ -4,10 +4,13 @@ import { useEffect, useState } from "react";
 import useAllData from "../../../hooks/useAllData";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import useAuth from "../../../hooks/useAuth";
+import useDeletePost from "../../../hooks/useDeletePost";
 
 const EditPost = () => {
   // user data
   const { user } = useAuth();
+  // post delete hook
+  const { handleDelete } = useDeletePost();
   // time
   const timeNow = new Date().toLocaleDateString("en-US", {
     year: "numeric",
@@ -122,13 +125,23 @@ const EditPost = () => {
 
   const update = () => {
     axiosSecure.put(`/post/${id}`, jobData).then((data) => {
-      if (data.data.acknowledged) {
-        toast.success("update data");
+      if (data.data.modifiedCount > 0) {
+        toast.success("update post data");
+      } else {
+        toast.error("something wrong please contact with Developer");
       }
     });
   };
   return (
     <div className="mt-32 mb-10 w-10/12 mx-auto">
+      <div className="grid w-full justify-between items-center">
+        <button
+          onClick={() => handleDelete(id)}
+          className="ml-2  bg-red-600 hover:bg-red-700 hover:border-red-900 btn btn-ghost border-red-700 text-white "
+        >
+          delete
+        </button>
+      </div>
       <Toaster />
       <div className="mt-6 bg-green-50 border border-green-500 p-4 md:p-6  grid gap-4 lg:gap-10 md:grid-cols-2 ">
         {/* position name filed */}
