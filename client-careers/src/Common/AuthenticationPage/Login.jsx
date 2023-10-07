@@ -4,7 +4,7 @@ import { AuthContext } from "../../provider/AuthProvider";
 
 const Login = () => {
   // context api
-  const { signIn, signInWithGoogle } = useContext(AuthContext);
+  const { signIn } = useContext(AuthContext);
   // location
   const location = useLocation();
   const from = location.state?.from?.pathname || "/";
@@ -32,23 +32,23 @@ const Login = () => {
       });
   };
 
-  const handleGooglePopup = () => {
-    return signInWithGoogle()
-      .then((result) => {
-        const user = result.user;
-        console.log(user);
-        setError("");
-        setSuccess("login success - Google");
-        navigate(from, { replace: true });
-      })
-      .catch((error) => {
-        // Handle Errors here.
-        const errorMessage = error.message;
+  // const handleGooglePopup = () => {
+  //   return signInWithGoogle()
+  //     .then((result) => {
+  //       const user = result.user;
+  //       console.log(user);
+  //       setError("");
+  //       setSuccess("login success - Google");
+  //       navigate(from, { replace: true });
+  //     })
+  //     .catch((error) => {
+  //       // Handle Errors here.
+  //       const errorMessage = error.message;
 
-        setError(errorMessage);
-        setSuccess("");
-      });
-  };
+  //       setError(errorMessage);
+  //       setSuccess("");
+  //     });
+  // };
   // const handleGitPopup = () => {
   //   return signInWithGit()
   //     .then((result) => {

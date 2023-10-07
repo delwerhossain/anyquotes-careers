@@ -1,4 +1,4 @@
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useContext, useState } from "react";
 import { updateProfile } from "firebase/auth";
 import { Toaster, toast } from "react-hot-toast";
@@ -13,15 +13,15 @@ const Register = () => {
   const [accept, setAccept] = useState(false);
 
   //navigation
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
-  const handleSignOut = () => {
-    signOutUser()
-      .then(() => {})
-      .catch((error) => {
-        console.error(error);
-      });
-  };
+  // const handleSignOut = () => {
+  //   signOutUser()
+  //     .then(() => {})
+  //     .catch((error) => {
+  //       console.error(error);
+  //     });
+  // };
   const handleRegister = (e) => {
     e.preventDefault();
     const name = e.target.name.value;
