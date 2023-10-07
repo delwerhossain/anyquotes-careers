@@ -3,7 +3,6 @@ import useAxiosSecure from "./useAxiosSecure";
 
 const useSingleData = (id) => {
   const [data, setData] = useState([]);
-    // console.log(data);
   const [axiosSecure] = useAxiosSecure();
 
   const handleData = () => {
@@ -12,7 +11,11 @@ const useSingleData = (id) => {
       .then((data) => {
         setData(data?.data);
       })
-      .catch((error) => console.error(error));
+      .catch((error) => {
+        setData({error: true});
+        console.error(error)
+      
+      });
   };
 
   useEffect(() => {
