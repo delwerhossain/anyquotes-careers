@@ -101,7 +101,7 @@ const CreatePost = () => {
       if (data.data.acknowledged) {
         toast.success("post Created Successfully");
         navigate(`/apply/${data.data.insertedId}`);
-        console.log(data.data);
+        // console.log(data.data);
       } else {
         toast.error("something wrong please contact with Developer");
       }

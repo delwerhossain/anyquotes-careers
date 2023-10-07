@@ -59,7 +59,7 @@ const EditPost = () => {
     });
   }, [data]);
 
-  console.log(jobData);
+  // console.log(jobData);
   // Responsibilities;
 
   // Function to add a new requirement input field
