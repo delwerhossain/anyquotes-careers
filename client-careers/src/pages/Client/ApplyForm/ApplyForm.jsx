@@ -17,22 +17,19 @@ export const ApplyForm = () => {
   const [jobData, setJobData] = useState([]);
   const [pdfFile, setPdfFile] = useState(null);
   const [captcha, setCaptcha] = useState(false);
-
-
-  // console.log(jobData);
   // get single data
   const data = useSingleData(id);
-  // console.log(data);
-  // const dataFilter = () => {
-  //   const allData = data.filter((data) => data?._id == id);
-  //   setJobData(allData);
-  // };
+
   useEffect(() => {
-    // dataFilter();
+    console.log(data?.error);
+    if (data?.error) {
+      return navigate("/error");
+    } else if (jobData.length > 0) {
+      setLoading(false);
+    }
     setJobData([data]);
   }, [data]);
 
-  console.log(jobData);
   const navigate = useNavigate();
   // form submission
   const handleSubmit = (e) => {
@@ -47,9 +44,7 @@ export const ApplyForm = () => {
     const jobName = jobData[0].jobTitle;
 
     const data = { name, email, number, pdfFile, about, jobName };
-    // console.log({ name, email, number, about, jobName });
     axiosSecure.post("/email/sendEmail", data).then((data) => {
-      // console.log(data.data.acknowledged);
       if (data.data.acknowledged) {
         toast.success("success message");
         setBtn(false);
@@ -78,18 +73,10 @@ export const ApplyForm = () => {
   // loading indicator
   const [loading, setLoading] = useState(true);
   const [btn, setBtn] = useState(false);
-  console.log(data);
-  useEffect(() => {
-    if (jobData.length > 0) {
-      setLoading(false);
-    } else {
-      setLoading(true);
-    }
-  }, [data]);
 
   return loading ? (
     <div className="grid justify-center items-center">
-      <Loading></Loading> 
+      <Loading></Loading>
     </div>
   ) : (
     <div className="xl:mt-32 mt-24   ">
