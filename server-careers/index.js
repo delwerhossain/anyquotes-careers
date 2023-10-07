@@ -31,6 +31,32 @@ const corsOptions = {
 app.use(cors(corsOptions));
 app.use(express.json());
 
+// jwt verify
+const verifyJWT = (req, res, next) => {
+  const authorization = req.headers.authorization;
+  if (!authorization) {
+    return res
+      .status(401)
+      .send({ error: true, message: "unauthorized access" });
+  }
+  const token = authorization.split(" ")[1];
+  jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, decoded) => {
+    if (err) {
+      return res.status(401).send({ error: true, message: "invalid token" });
+    }
+    req.decoded = decoded;
+    next();
+  });
+};
+
+app.post("/jwt", (req, res) => {
+  const user = req.body;
+  const token = jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, {
+    expiresIn: "1h",
+  });
+  res.send({ token });
+});
+
 ////////////////////////////////////////
 // mongoDB  everything starts
 ////////////////////////////////////////
@@ -51,6 +77,25 @@ async function run() {
     // Connect the client to the server	(optional starting in v4.7)
     client.connect();
     const postCollection = client.db("aq-career").collection("post");
+    const usersCollection = client.db("aq-career").collection("users");
+
+    //--------------------------
+    //     Verification JWT
+    //--------------------------
+
+    // Warning: use verifyJWT before using verifyAdmin
+    const verifyAdmin = async (req, res, next) => {
+      const email = req.decoded.email;
+      const query = { email: email };
+      const user = await usersCollection.findOne(query);
+      console.log(user);
+      if (user.role !== "admin") {
+        return res
+          .status(403)
+          .send({ error: true, message: "forbidden access" });
+      }
+      next();
+    };
 
     ////////////////////////////////////////
     // mongoDB  API CRUD starts here
@@ -66,22 +111,40 @@ async function run() {
     });
     // get the single data
     app.get("/post/:id", async (req, res) => {
-      const id = req.params.id; 
-      const filterID = { _id: new ObjectId(id) };
-      const result = await postCollection.findOne(filterID);
-      res.send(result);
+      try {
+        const id = req.params.id;
+
+        if (!ObjectId.isValid(id)) {
+          // If the provided id is not a valid ObjectId, return a 400 Bad Request response.
+          return res
+            .status(404)
+            .send({ error: true, message: "Invalid ObjectId format" });
+        }
+
+        const filterID = { _id: new ObjectId(id) };
+        const result = await postCollection.findOne(filterID);
+
+        if (!result) {
+          return res.status(404).send({ error: true, message: "Not found" });
+        }
+
+        res.send(result);
+      } catch (error) {
+        // Handle other errors (e.g., database connection errors)
+        console.error(error);
+        res.status(500).send({ error: true, message: "Internal server error" });
+      }
     });
 
     //post post data
-    app.post("/post", async (req, res) => {
+    app.post("/post", verifyJWT, verifyAdmin, async (req, res) => {
       const data = req.body;
       const result = await postCollection.insertOne(data);
       res.status(200).json(result);
-      
     });
 
     //edit post data
-    app.put("/post/:id", async (req, res) => {
+    app.put("/post/:id", verifyJWT, verifyAdmin, async (req, res) => {
       const data = req.body;
       const id = req.params.id;
       // const publishTime = Date.now();
@@ -121,12 +184,12 @@ async function run() {
       res.status(200).json(result);
     });
     // delete post data
-    app.delete("/post/:id", async (req, res) => {
+    app.delete("/post/:id", verifyJWT, verifyAdmin, async (req, res) => {
       const id = req.params.id;
       const filter = { _id: new ObjectId(id) };
       const result = await postCollection.deleteOne(filter);
       res.status(200).json(result);
-    })
+    });
 
     ////////////////////////////////////////
     // mongoDB  everything ends here
