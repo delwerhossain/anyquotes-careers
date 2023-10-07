@@ -3,9 +3,8 @@ import useAuth from "../../../hooks/useAuth";
 import { FiLogIn, FiLogOut } from "react-icons/fi";
 
 const Navbar = () => {
-  
   const location = useLocation();
-  console.log(location.pathname);
+  // console.log(location.pathname);
   const { user, signOutLog } = useAuth();
 
   // logout user part
@@ -13,7 +12,7 @@ const Navbar = () => {
     return signOutLog()
       .then(() => {
         // Sign-out successful.
-        localStorage.removeItem("jwt");
+        localStorage.removeItem("access-token");
       })
       .catch(() => {});
   };
@@ -181,7 +180,6 @@ const Navbar = () => {
                 loading="lazy"
                 className="w-12 mr-1 rounded-full"
                 src="https://shorturl.at/eABFI"
-                
               />
             </div>
             <div className="tooltip tooltip-bottom " data-tip="log Out">
