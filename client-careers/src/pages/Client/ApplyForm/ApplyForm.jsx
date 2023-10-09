@@ -21,7 +21,7 @@ export const ApplyForm = () => {
   const data = useSingleData(id);
 
   useEffect(() => {
-    console.log(data?.error);
+    // console.log(data?.error);
     if (data?.error) {
       return navigate("/error");
     } else if (jobData.length > 0) {

@@ -20,7 +20,7 @@ const commonMailOptions = {
 
 const sendEmail = expressAsyncHandler(async (req, res) => {
   const { name, email, number, pdfFile, about, jobName } = req.body;
-  console.log(name, email, number, pdfFile, about, jobName);
+  // console.log(name, email, number, pdfFile, about, jobName);
 
   const candiedData = `
     <!DOCTYPE html>

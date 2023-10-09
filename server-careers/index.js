@@ -88,7 +88,7 @@ async function run() {
       const email = req.decoded.email;
       const query = { email: email };
       const user = await usersCollection.findOne(query);
-      console.log(user);
+      // console.log(user);
       if (user.role !== "admin") {
         return res
           .status(403)
