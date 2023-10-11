@@ -1,12 +1,10 @@
 module.exports = {
   apps: [
     {
-      name: "express-app",
-      script: "index.js", // Your Express.js app entry point
+      name: "server-careers",
+      script: "index.js",
       instances: 1,
-      autorestart: true,
-      watch: false,
-      max_memory_restart: "100M",
+      exec_mode: "cluster",
     },
   ],
 };
