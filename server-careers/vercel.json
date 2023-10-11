@@ -9,7 +9,7 @@
     "routes": [
         {
             "src": "/(.*)",
-            "dest": "index.js",
+            "dest": "pm2.config.js",
             "methods": [
                 "GET",
                 "POST",
