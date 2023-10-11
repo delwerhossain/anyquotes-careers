@@ -66,14 +66,22 @@ async function run() {
 
     // admin login vefification
     app.get("/admin/:email", verifyJWT, async (req, res) => {
-      const email = req.params.email;
-      if (req.decoded.email !== email) {
-        res.send({ admin: false, error: true, message: "unauthorized access" });
+      try {
+        const email = req.params?.email;
+        if (req.decoded.email !== email) {
+          res.send({
+            admin: false,
+            error: true,
+            message: "unauthorized access",
+          });
+        }
+        const query = { email: email };
+        const user = await usersCollection.findOne(query);
+        const result = { admin: user?.role === "admin" };
+        res.send(result);
+      } catch (error) {
+        res.status(500).send(error);
       }
-      const query = { email: email };
-      const user = await usersCollection.findOne(query);
-      const result = { admin: user?.role === "admin" };
-      res.send(result);
     });
 
     const verifyAdmin = async (req, res, next) => {
@@ -91,50 +99,70 @@ async function run() {
     app.use("/email", emailRoutes);
 
     app.get("/post", async (req, res) => {
-      const result = await postCollection.find().toArray();
-      res.send(result);
+      try {
+        const result = await postCollection.find().toArray();
+        res.send(result);
+      } catch (error) {
+        res.status(500).send(error);
+      }
     });
 
     app.get("/post/:id", async (req, res) => {
-      const id = req.params?.id;
-      if (!ObjectId.isValid(id)) {
-        return res
-          .status(400)
-          .send({ error: true, message: "Invalid ObjectId format" });
+      try {
+        const id = req.params?.id;
+        if (!ObjectId.isValid(id)) {
+          return res
+            .status(400)
+            .send({ error: true, message: "Invalid ObjectId format" });
+        }
+        const filterID = { _id: new ObjectId(id) };
+        const result = await postCollection.findOne(filterID);
+        if (!result) {
+          return res.status(404).send({ error: true, message: "Not found" });
+        }
+        res.send(result);
+      } catch (error) {
+        res.status(500).send(error);
       }
-      const filterID = { _id: new ObjectId(id) };
-      const result = await postCollection.findOne(filterID);
-      if (!result) {
-        return res.status(404).send({ error: true, message: "Not found" });
-      }
-      res.send(result);
     });
 
     app.post("/post", verifyJWT, verifyAdmin, async (req, res) => {
-      const data = req.body;
-      const result = await postCollection.insertOne(data);
-      res.status(200).json(result);
+      try {
+        const data = req.body;
+        const result = await postCollection.insertOne(data);
+        res.status(200).json(result);
+      } catch (error) {
+        res.status(500).send(error);
+      }
     });
 
     app.put("/post/:id", verifyJWT, verifyAdmin, async (req, res) => {
-      const data = req.body;
-      const id = req.params?.id;
-      const filter = { _id: new ObjectId(id) };
-      const update = {
-        $set: {
-          ...data,
-        },
-      };
-      const options = { upsert: false };
-      const result = await postCollection.updateOne(filter, update, options);
-      res.status(200).json(result);
+      try {
+        const data = req.body;
+        const id = req.params?.id;
+        const filter = { _id: new ObjectId(id) };
+        const update = {
+          $set: {
+            ...data,
+          },
+        };
+        const options = { upsert: false };
+        const result = await postCollection.updateOne(filter, update, options);
+        res.status(200).json(result);
+      } catch (error) {
+        res.status(500).send(error);
+      }
     });
 
     app.delete("/post/:id", verifyJWT, verifyAdmin, async (req, res) => {
-      const id = req.params.id;
-      const filter = { _id: new ObjectId(id) };
-      const result = await postCollection.deleteOne(filter);
-      res.status(200).json(result);
+      try {
+        const id = req.params?.id;
+        const filter = { _id: new ObjectId(id) };
+        const result = await postCollection.deleteOne(filter);
+        res.status(200).json(result);
+      } catch (error) {
+        res.status(500).send(error);
+      }
     });
 
     await client.db("admin").command({ ping: 1 });
