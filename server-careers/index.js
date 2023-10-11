@@ -46,22 +46,26 @@ async function run() {
     });
     // verify jwt
     const verifyJWT = (req, res, next) => {
-      const authorization = req.headers.authorization;
-      if (!authorization) {
-        return res
-          .status(401)
-          .send({ error: true, message: "unauthorized access" });
-      }
-      const token = authorization.split(" ")[1];
-      jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, decoded) => {
-        if (err) {
+      try {
+        const authorization = req.headers.authorization;
+        if (!authorization) {
           return res
             .status(401)
-            .send({ error: true, message: "invalid token" });
+            .send({ error: true, message: "unauthorized access" });
         }
-        req.decoded = decoded;
-        next();
-      });
+        const token = authorization.split(" ")[1];
+        jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, decoded) => {
+          if (err) {
+            return res
+              .status(401)
+              .send({ error: true, message: "invalid token" });
+          }
+          req.decoded = decoded;
+          next();
+        });
+      } catch (error) {
+        res.status(500).send(error);
+      }
     };
 
     // admin login vefification
@@ -85,15 +89,19 @@ async function run() {
     });
 
     const verifyAdmin = async (req, res, next) => {
-      const email = req?.decoded?.email;
-      const query = { email: email };
-      const user = await usersCollection.findOne(query);
-      if (user?.role !== "admin") {
-        return res
-          .status(403)
-          .send({ error: true, message: "forbidden access" });
+      try {
+        const email = req?.decoded?.email;
+        const query = { email: email };
+        const user = await usersCollection.findOne(query);
+        if (user?.role !== "admin") {
+          return res
+            .status(403)
+            .send({ error: true, message: "forbidden access" });
+        }
+        next();
+      } catch (error) {
+        res.status(500).send(error);
       }
-      next();
     };
 
     app.use("/email", emailRoutes);
