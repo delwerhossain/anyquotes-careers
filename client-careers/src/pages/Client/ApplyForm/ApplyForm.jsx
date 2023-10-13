@@ -79,7 +79,7 @@ export const ApplyForm = () => {
       <Loading></Loading>
     </div>
   ) : (
-    <div className="xl:mt-32 mt-24   ">
+    <div className="xl:mt-32 mt-24 bg-white text-black dark:bg-black   ">
       <div className="mb-16 xl:w-4/5 mx-auto">
         {jobData.map((data, b) => (
           <SortPost applyBtn={true} data={data} key={b} />
