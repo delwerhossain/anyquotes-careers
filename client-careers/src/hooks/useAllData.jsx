@@ -8,7 +8,7 @@ const useAllData = () => {
 
   const handleData = () => {
     axiosSecure
-      .get("/post")
+      .get("/all")
         .then((data) => {
            setData(data?.data);
         })

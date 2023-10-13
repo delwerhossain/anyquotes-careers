@@ -7,14 +7,13 @@ const useSingleData = (id) => {
 
   const handleData = () => {
     axiosSecure
-      .get(`/post/${id}`)
+      .get(`/single/${id}`)
       .then((data) => {
         setData(data?.data);
       })
       .catch((error) => {
-        setData({error: true});
-        console.error(error)
-      
+        setData({ error: true });
+        console.error(error);
       });
   };
 

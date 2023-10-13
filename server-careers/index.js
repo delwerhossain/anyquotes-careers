@@ -107,7 +107,7 @@ async function run() {
 
     app.use("/email", emailRoutes);
 
-    app.get("/post", async (req, res) => {
+    app.get("/all", async (req, res) => {
       try {
         const result = await postCollection.find().toArray();
         res.send(result);
@@ -116,7 +116,7 @@ async function run() {
       }
     });
 
-    app.get("/post/:id", async (req, res) => {
+    app.get("/single/:id", async (req, res) => {
       try {
         const id = req.params?.id;
         if (!ObjectId.isValid(id)) {
