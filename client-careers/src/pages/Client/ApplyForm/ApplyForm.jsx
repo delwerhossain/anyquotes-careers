@@ -86,7 +86,7 @@ export const ApplyForm = () => {
         ))}
       </div>
       {/* <div className="border-b  w-3/5  mx-auto"></div> */}
-      <div className="bg-green-100 pt-1 xl:w-5/6 w-11/12 mx-auto rounded-2xl border border-green-500 mb-5">
+      <div className="bg-green-100 dark:bg-green-950 dark:text-white pt-1 xl:w-5/6 w-11/12 mx-auto rounded-2xl border border-green-500 mb-5">
         <form
           onSubmit={handleSubmit}
           className="xl:w-4/5 w-11/12 mx-auto mb-8 "
@@ -94,7 +94,7 @@ export const ApplyForm = () => {
           <Toaster position="bottom-center" />
           <div className="space-y-12">
             <div className="border-b  border-green-400 pb-12">
-              <h2 className="xl:text-2xl mt-10 xl:font-semibold font-bold leading-7 text-gray-900">
+              <h2 className="xl:text-2xl mt-10 xl:font-semibold font-bold leading-7 text-gray-900 dark:text-gray-100">
                 <span className="bg-green-600  text-white rounded-lg mt-10  xl:px-4 px-2 xl:py-2 py-1  ">
                   {" "}
                   {jobData[0]?.jobTitle}
@@ -102,11 +102,11 @@ export const ApplyForm = () => {
                 For Apply
               </h2>
 
-              <div className="xl:mt-10 mt-5 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
+              <div className="xl:mt-10 mt-5 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6 ">
                 <div className="sm:col-span-3">
                   <label
                     htmlFor="full-name"
-                    className="block text-sm font-medium leading-6 text-gray-900"
+                    className="block text-sm font-medium leading-6 "
                   >
                     Full Name
                   </label>
@@ -117,7 +117,7 @@ export const ApplyForm = () => {
                       name="name"
                       id="full-name"
                       autoComplete="given-name"
-                      className="block w-full rounded-md border-0 py-1.5 px-3  text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-green-600 sm:text-sm sm:leading-6"
+                      className="block w-full rounded-md border-0 py-1.5 px-3  text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400  dark:placeholder:text-black  focus:ring-2 focus:ring-inset focus:ring-green-600 sm:text-sm sm:leading-6"
                     />
                   </div>
                 </div>
@@ -125,7 +125,7 @@ export const ApplyForm = () => {
                 <div className="sm:col-span-4">
                   <label
                     htmlFor="email"
-                    className="block text-sm font-medium leading-6 text-gray-900"
+                    className="block text-sm font-medium leading-6 "
                   >
                     Email address
                   </label>
@@ -143,7 +143,7 @@ export const ApplyForm = () => {
                 <div className="sm:col-span-4">
                   <label
                     htmlFor="number"
-                    className="block text-sm font-medium leading-6 text-gray-900"
+                    className="block text-sm font-medium leading-6 "
                   >
                     Phone Number
                   </label>
@@ -161,7 +161,7 @@ export const ApplyForm = () => {
                 {/* <div className="sm:col-span-4">
                   <label
                     htmlFor="link"
-                    className="block text-sm font-medium leading-6 text-gray-900"
+                    className="block text-sm font-medium leading-6 "
                   >
                     CV Drive Link
                   </label>
@@ -223,7 +223,7 @@ export const ApplyForm = () => {
                 <div className="col-span-full">
                   <label
                     htmlFor="about"
-                    className="block text-sm font-medium leading-6 text-gray-900"
+                    className="block text-sm font-medium leading-6 "
                   >
                     About
                   </label>
@@ -265,7 +265,7 @@ export const ApplyForm = () => {
               <Link
                 to={"/"}
                 type="button"
-                className=" font-semibold leading-6 text-gray-900"
+                className=" btn btn-error"
               >
                 Cancel
               </Link>

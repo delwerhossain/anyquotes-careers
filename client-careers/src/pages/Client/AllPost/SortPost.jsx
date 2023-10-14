@@ -99,7 +99,7 @@ const SortPost = ({ data, applyBtn }) => {
       </div>
 
       {hide && (
-        <div className="p-6 mt-10 ">
+        <div className="p-6 mt-10 dark:text-black ">
           <div className="bg-yellow-50 p-4 border border-yellow-400">
             <p className="font-bold block text-xl mb-2">Description : </p>
             <p className="pl-4 "> {description}</p>

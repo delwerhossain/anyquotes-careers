@@ -8,13 +8,7 @@ const Main = () => {
   const [dark, setDark] = useState(false);
   console.log({ dark });
   return (
-    <div
-      className={
-        dark
-          ? "dark dark:text-white dark:bg-black  select-color-red"
-          : " bg-white text-black" 
-      }
-    >
+    <div className={` dark:bg-black  bg-white text-black ${ dark && 'dark'}`}>
       <Navbar dark={dark} setDark={setDark} />
       {/* outlet part  */}
       <Outlet></Outlet>

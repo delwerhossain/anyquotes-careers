@@ -19,7 +19,7 @@ const AllPost = () => {
       <Loading></Loading>
     </div>
   ) : (
-    <div className="mt-28 bg-white text-black dark:bg-black">
+    <div className="mt-28 bg-white text-black dark:text-white dark:bg-black">
       <div className="grid w-full md:grid-cols-2 justify-center ">
         {data.map((data, b) => (
           <SortPost data={data} key={b} />
