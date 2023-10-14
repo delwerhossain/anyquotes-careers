@@ -2,6 +2,7 @@ import { Outlet } from "react-router-dom";
 import Navbar from "../../Common/common/Navbar/Navbar";
 import Footer from "../../Common/common/Navbar/Footer";
 import { useState } from "react";
+import './Main.css'; // Import your CSS file
 
 const Main = () => {
   const [dark, setDark] = useState(false);
@@ -9,7 +10,9 @@ const Main = () => {
   return (
     <div
       className={
-        dark ? "dark dark:text-white dark:bg-black " : " bg-white text-black"
+        dark
+          ? "dark dark:text-white dark:bg-black  select-color-red"
+          : " bg-white text-black" 
       }
     >
       <Navbar dark={dark} setDark={setDark} />
