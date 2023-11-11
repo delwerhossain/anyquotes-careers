@@ -34,7 +34,7 @@ const client = new MongoClient(uri, {
 
 async function run() {
   try {
-    await client.connect();
+    // await client.connect();
     const postCollection = client.db("aq-career").collection("post");
     const usersCollection = client.db("aq-career").collection("users");
     // login for authentication
