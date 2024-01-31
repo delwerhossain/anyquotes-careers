@@ -29,7 +29,7 @@ const client = new MongoClient(uri, {
     strict: true,
     deprecationErrors: true,
   },
-  serverSelectionTimeoutMS: 60000,
+  serverSelectionTimeoutMS: 60000, // Adjust this timeout as needed
 });
 
 async function run() {
@@ -180,13 +180,19 @@ async function run() {
     );
   } catch (error) {
     console.error(error);
+    throw error;
   } finally {
     // Ensure that the client will close when you finish/error
     // await client.close();
   }
 }
 
-run().catch(console.dir);
+// Call the run function and handle any errors
+run().catch((error) => {
+  console.error("Error occurred during server initialization:", error);
+  // Optionally, you can exit the process or take other actions here
+  process.exit(1);
+});
 
 app.use("/email", emailRoutes);
 
