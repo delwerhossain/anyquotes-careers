@@ -3,6 +3,7 @@ import { AiFillCaretDown, AiFillCaretUp } from "react-icons/ai";
 import { Link, useLocation } from "react-router-dom";
 import useAuth from "../../../hooks/useAuth";
 import useDeletePost from "../../../hooks/useDeletePost";
+import { formatToDDMMYYYY } from "../../../utils/formatDate";
 
 
 
@@ -31,7 +32,7 @@ const SortPost = ({ data, applyBtn }) => {
     <div className="lg:m-6 m-2 lg:p-10 px-3 py-5 border border-green-200 rounded-xl  relative ">
       <div className="flex justify-between">
         <h5 className="border rounded p-4 w-40  border-green-400 text-center text-sm  text-slate-700 dark:text-slate-100 font-semibold">
-          <span className="font-bold">Post Date :</span> <br /> {publishTime}
+          <span className="font-bold">Post Date :</span> <br />  {formatToDDMMYYYY(publishTime)}
         </h5>
         {user && (
           <div className="p-4 bg-green-200">

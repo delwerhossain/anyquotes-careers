@@ -33,7 +33,7 @@ const AuthProvider = ({ children }) => {
         localStorage.removeItem("access-token");
       } else {
         const loggerUser = { email: currentUser.email };
-        const url = `${import.meta.env.VITE_server_url}jwt`;
+        const url = `https://anyquotes-careers.vercel.app/jwt`;
         fetch(url, {
           method: "POST",
           headers: {
